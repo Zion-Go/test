@@ -1,0 +1,9 @@
+version: "1.0"
+services:
+    ros2_driver:
+        image: ${ARCH}rolling/ros2_driver:${TAG}
+        build:
+            context: ${PRODUCTION_PATH}
+            dockerfile: Dockerfile.${ARCH}
+        container_name: ros2_driver
+

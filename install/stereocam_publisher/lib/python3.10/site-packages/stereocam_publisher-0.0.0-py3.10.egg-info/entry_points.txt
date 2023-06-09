@@ -1,0 +1,4 @@
+[console_scripts]
+leftcamera_publisher = stereocam_publisher.leftcamera_publisher:main
+rightcamera_publisher = stereocam_publisher.rightcamera_publisher:main
+

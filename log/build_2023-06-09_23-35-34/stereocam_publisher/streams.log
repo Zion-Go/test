@@ -1,0 +1,43 @@
+[0.390s] Invoking command in '/home/a/theimagingsource_ros/src/stereocam_publisher': PYTHONPATH=/home/a/theimagingsource_ros/build/stereocam_publisher/prefix_override:/home/a/theimagingsource_ros/install/stereocam_publisher/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/stereocam_publisher build --build-base /home/a/theimagingsource_ros/build/stereocam_publisher/build install --record /home/a/theimagingsource_ros/build/stereocam_publisher/install.log --single-version-externally-managed
+[0.524s] running egg_info
+[0.525s] creating ../../build/stereocam_publisher/stereocam_publisher.egg-info
+[0.525s] writing ../../build/stereocam_publisher/stereocam_publisher.egg-info/PKG-INFO
+[0.525s] writing dependency_links to ../../build/stereocam_publisher/stereocam_publisher.egg-info/dependency_links.txt
+[0.526s] writing entry points to ../../build/stereocam_publisher/stereocam_publisher.egg-info/entry_points.txt
+[0.526s] writing requirements to ../../build/stereocam_publisher/stereocam_publisher.egg-info/requires.txt
+[0.526s] writing top-level names to ../../build/stereocam_publisher/stereocam_publisher.egg-info/top_level.txt
+[0.526s] writing manifest file '../../build/stereocam_publisher/stereocam_publisher.egg-info/SOURCES.txt'
+[0.527s] reading manifest file '../../build/stereocam_publisher/stereocam_publisher.egg-info/SOURCES.txt'
+[0.528s] writing manifest file '../../build/stereocam_publisher/stereocam_publisher.egg-info/SOURCES.txt'
+[0.528s] running build
+[0.528s] running build_py
+[0.528s] creating /home/a/theimagingsource_ros/build/stereocam_publisher/build
+[0.529s] creating /home/a/theimagingsource_ros/build/stereocam_publisher/build/lib
+[0.529s] creating /home/a/theimagingsource_ros/build/stereocam_publisher/build/lib/stereocam_publisher
+[0.529s] copying stereocam_publisher/TIS.py -> /home/a/theimagingsource_ros/build/stereocam_publisher/build/lib/stereocam_publisher
+[0.529s] copying stereocam_publisher/__init__.py -> /home/a/theimagingsource_ros/build/stereocam_publisher/build/lib/stereocam_publisher
+[0.529s] copying stereocam_publisher/stereocam_publisher.py -> /home/a/theimagingsource_ros/build/stereocam_publisher/build/lib/stereocam_publisher
+[0.530s] running install
+[0.530s] running install_lib
+[0.531s] creating /home/a/theimagingsource_ros/install/stereocam_publisher/lib/python3.10/site-packages/stereocam_publisher
+[0.531s] copying /home/a/theimagingsource_ros/build/stereocam_publisher/build/lib/stereocam_publisher/TIS.py -> /home/a/theimagingsource_ros/install/stereocam_publisher/lib/python3.10/site-packages/stereocam_publisher
+[0.531s] copying /home/a/theimagingsource_ros/build/stereocam_publisher/build/lib/stereocam_publisher/__init__.py -> /home/a/theimagingsource_ros/install/stereocam_publisher/lib/python3.10/site-packages/stereocam_publisher
+[0.532s] copying /home/a/theimagingsource_ros/build/stereocam_publisher/build/lib/stereocam_publisher/stereocam_publisher.py -> /home/a/theimagingsource_ros/install/stereocam_publisher/lib/python3.10/site-packages/stereocam_publisher
+[0.532s] byte-compiling /home/a/theimagingsource_ros/install/stereocam_publisher/lib/python3.10/site-packages/stereocam_publisher/TIS.py to TIS.cpython-310.pyc
+[0.534s] byte-compiling /home/a/theimagingsource_ros/install/stereocam_publisher/lib/python3.10/site-packages/stereocam_publisher/__init__.py to __init__.cpython-310.pyc
+[0.534s] byte-compiling /home/a/theimagingsource_ros/install/stereocam_publisher/lib/python3.10/site-packages/stereocam_publisher/stereocam_publisher.py to stereocam_publisher.cpython-310.pyc
+[0.535s] running install_data
+[0.535s] creating /home/a/theimagingsource_ros/install/stereocam_publisher/share/ament_index
+[0.535s] creating /home/a/theimagingsource_ros/install/stereocam_publisher/share/ament_index/resource_index
+[0.535s] creating /home/a/theimagingsource_ros/install/stereocam_publisher/share/ament_index/resource_index/packages
+[0.535s] copying resource/stereocam_publisher -> /home/a/theimagingsource_ros/install/stereocam_publisher/share/ament_index/resource_index/packages
+[0.536s] copying package.xml -> /home/a/theimagingsource_ros/install/stereocam_publisher/share/stereocam_publisher
+[0.536s] creating /home/a/theimagingsource_ros/install/stereocam_publisher/share/stereocam_publisher/launch
+[0.536s] copying launch/launch.py -> /home/a/theimagingsource_ros/install/stereocam_publisher/share/stereocam_publisher/launch
+[0.536s] running install_egg_info
+[0.538s] Copying ../../build/stereocam_publisher/stereocam_publisher.egg-info to /home/a/theimagingsource_ros/install/stereocam_publisher/lib/python3.10/site-packages/stereocam_publisher-0.0.0-py3.10.egg-info
+[0.540s] running install_scripts
+[0.556s] Installing leftcamera_publisher script to /home/a/theimagingsource_ros/install/stereocam_publisher/lib/stereocam_publisher
+[0.557s] Installing rightcamera_publisher script to /home/a/theimagingsource_ros/install/stereocam_publisher/lib/stereocam_publisher
+[0.557s] writing list of installed files to '/home/a/theimagingsource_ros/build/stereocam_publisher/install.log'
+[0.595s] Invoked command in '/home/a/theimagingsource_ros/src/stereocam_publisher' returned '0': PYTHONPATH=/home/a/theimagingsource_ros/build/stereocam_publisher/prefix_override:/home/a/theimagingsource_ros/install/stereocam_publisher/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/stereocam_publisher build --build-base /home/a/theimagingsource_ros/build/stereocam_publisher/build install --record /home/a/theimagingsource_ros/build/stereocam_publisher/install.log --single-version-externally-managed

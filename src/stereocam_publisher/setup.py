@@ -9,11 +9,10 @@ setup(
     version='0.0.0',
     packages=[package_name],
     data_files=[
-        ('share/ament_index/resource_index/packages',
-            ['resource/' + package_name]),
-        ('share/' + package_name, ['package.xml']),
-        (os.path.join('theimagingsource', 'launch'), 
-        glob(os.path.join('launch', '*launch.[py][yaml]*')))
+        ('share/ament_index/resource_index/packages', ['resource/' + package_name]),
+        (os.path.join('share', package_name), ['package.xml']),
+        (os.path.join('share', package_name, 'launch'), glob(os.path.join('launch/*.py'))),
+        (os.path.join('share', package_name, 'config'), glob(os.path.join('config/*.yaml'))),
     
     ],
     install_requires=['setuptools'],
@@ -25,6 +24,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        ],
+        'leftcamera_publisher = stereocam_publisher.leftcamera_publisher:main',
+        'rightcamera_publisher = stereocam_publisher.rightcamera_publisher:main'],
     },
 )

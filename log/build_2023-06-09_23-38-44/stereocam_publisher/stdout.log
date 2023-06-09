@@ -1,0 +1,21 @@
+running egg_info
+writing ../../build/stereocam_publisher/stereocam_publisher.egg-info/PKG-INFO
+writing dependency_links to ../../build/stereocam_publisher/stereocam_publisher.egg-info/dependency_links.txt
+writing entry points to ../../build/stereocam_publisher/stereocam_publisher.egg-info/entry_points.txt
+writing requirements to ../../build/stereocam_publisher/stereocam_publisher.egg-info/requires.txt
+writing top-level names to ../../build/stereocam_publisher/stereocam_publisher.egg-info/top_level.txt
+reading manifest file '../../build/stereocam_publisher/stereocam_publisher.egg-info/SOURCES.txt'
+writing manifest file '../../build/stereocam_publisher/stereocam_publisher.egg-info/SOURCES.txt'
+running build
+running build_py
+running install
+running install_lib
+running install_data
+copying launch/launch.py -> /home/a/theimagingsource_ros/install/stereocam_publisher/share/stereocam_publisher/launch
+running install_egg_info
+removing '/home/a/theimagingsource_ros/install/stereocam_publisher/lib/python3.10/site-packages/stereocam_publisher-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/stereocam_publisher/stereocam_publisher.egg-info to /home/a/theimagingsource_ros/install/stereocam_publisher/lib/python3.10/site-packages/stereocam_publisher-0.0.0-py3.10.egg-info
+running install_scripts
+Installing leftcamera_publisher script to /home/a/theimagingsource_ros/install/stereocam_publisher/lib/stereocam_publisher
+Installing rightcamera_publisher script to /home/a/theimagingsource_ros/install/stereocam_publisher/lib/stereocam_publisher
+writing list of installed files to '/home/a/theimagingsource_ros/build/stereocam_publisher/install.log'

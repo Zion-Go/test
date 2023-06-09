@@ -1,6 +1,0 @@
-launch:
-
-- node:
-    pkg: "leftcampublisher"
-    exec: "leftcamerapublisher"
-    name: "leftcamera"

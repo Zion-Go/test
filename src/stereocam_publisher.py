@@ -65,26 +65,24 @@ class CAMERA(TIS.TIS):
             try:
                 self.set_property(prop['property'],prop['value'])
             except Exception as error:
-                print(error)
+                print(error)        
 
-        
-
-class Publisher(Node):
+class RightCam_Publisher(Node):
     def __init__(self):
         super().__init__('Right_Camera_Publisher')
         
-        with open("rightcamera_publish_config.json") as jsonFile:
-            cameraconfig = json.load(jsonFile)
+        with open("./config/rightcamera_publish_config.json") as jsonFile:
+            cameraconfig_r = json.load(jsonFile)
             # print(cameraconfig)
             jsonFile.close()
 
         self.bridge = CvBridge()
-        self.camera = CAMERA(cameraconfig['properties'], cameraconfig['imageprefix'])
-        pformat = cameraconfig["pixelformat"]
-        self.camera.open_device(cameraconfig['serial'],
-                    cameraconfig['width'],
-                    cameraconfig['height'],
-                    cameraconfig['framerate'],
+        self.camera = CAMERA(cameraconfig_r['properties'], cameraconfig_r['imageprefix'])
+        pformat = cameraconfig_r["pixelformat"]
+        self.camera.open_device(cameraconfig_r['serial'],
+                    cameraconfig_r['width'],
+                    cameraconfig_r['height'],
+                    cameraconfig_r['framerate'],
                     TIS.SinkFormats[pformat], False)
     
         self.camera.set_image_callback(self.ros_callback)
@@ -108,11 +106,55 @@ class Publisher(Node):
         self.publisher_.publish(img_msg)
         self.get_logger().info('Received right image')
 
+class LeftCam_Publisher(Node):
+    def __init__(self):
+        super().__init__('Left_Camera_Publisher')
+        
+        with open("./config/leftcamera_publish_config.json") as jsonFile:
+            cameraconfig_l = json.load(jsonFile)
+            # print(cameraconfig)
+            jsonFile.close()
+
+        self.bridge = CvBridge()
+        self.camera = CAMERA(cameraconfig_l['properties'], cameraconfig_l['imageprefix'])
+        pformat = cameraconfig_l["pixelformat"]
+        self.camera.open_device(cameraconfig_l['serial'],
+                    cameraconfig_l['width'],
+                    cameraconfig_l['height'],
+                    cameraconfig_l['framerate'],
+                    TIS.SinkFormats[pformat], False)
+    
+        self.camera.set_image_callback(self.ros_callback)
+    
+        self.camera.enableTriggerMode("Off")
+        self.camera.busy = True
+        self.camera.start_pipeline()
+        self.camera.applyProperties()
+        self.camera.enableTriggerMode("On")
+        
+        self.publisher_ = self.create_publisher(Image, 'Left_Image', 10)
+        self.i = 0
+        self.im_list = []
+        
+    
+    def ros_callback(self, camera):
+        cv_image = camera.get_image()
+        img_msg = self.bridge.cv2_to_imgmsg(np.array(cv_image[:,:,:3]), "bgr8")
+        img_msg.header.frame_id = "left_img"
+        img_msg.header.stamp = self.get_clock().now().to_msg()
+        self.publisher_.publish(img_msg)
+        self.get_logger().info('Received left image')
+
 def main(args=None):
     rclpy.init(args=args)
-    ros_Publisher = Publisher()
-    rclpy.spin(ros_Publisher)
-    ros_Publisher.destroy_node()
+    cam_Publisher_l = LeftCam_Publisher()
+    cam_Publisher_r = RightCam_Publisher()
+
+    rclpy.spin(cam_Publisher_l)
+    rclpy.spin(cam_Publisher_r)
+
+    cam_Publisher_l.destroy_node()
+    cam_Publisher_r.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':

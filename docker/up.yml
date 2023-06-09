@@ -1,0 +1,20 @@
+version: "1.0"
+services:
+    ros2_driver:
+        image: ${ARCH}humble/ros2_driver:${TAG}
+        network_mode: host
+        pid: host
+        container_name: ros2_driver
+        env_file: $ENV_FILE
+        environment:
+            - DISPLAY=$DISPLAY
+        privileged: true
+        user: root
+        tty: true
+        volumes:
+            - type: bind
+              source: ${PRODUCTION_PATH}/ros2_humble_docker/ros2_repos
+              target: /home/docker_ros2_humble/ros2_repos
+            - /dev:/dev:rw
+        # command: bash -c "source /opt/ros/humble/setup.bash;"
+

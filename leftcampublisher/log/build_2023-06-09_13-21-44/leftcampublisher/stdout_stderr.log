@@ -1,0 +1,30 @@
+running egg_info
+creating build/leftcampublisher/leftcampublisher.egg-info
+writing build/leftcampublisher/leftcampublisher.egg-info/PKG-INFO
+writing dependency_links to build/leftcampublisher/leftcampublisher.egg-info/dependency_links.txt
+writing entry points to build/leftcampublisher/leftcampublisher.egg-info/entry_points.txt
+writing requirements to build/leftcampublisher/leftcampublisher.egg-info/requires.txt
+writing top-level names to build/leftcampublisher/leftcampublisher.egg-info/top_level.txt
+writing manifest file 'build/leftcampublisher/leftcampublisher.egg-info/SOURCES.txt'
+package init file 'leftcampublisher/__init__.py' not found (or not a regular file)
+reading manifest file 'build/leftcampublisher/leftcampublisher.egg-info/SOURCES.txt'
+writing manifest file 'build/leftcampublisher/leftcampublisher.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/build
+creating /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/build/lib
+creating /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/build/lib/leftcampublisher
+copying leftcampublisher/leftcam_publisher.py -> /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/build/lib/leftcampublisher
+running install
+/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+running install_lib
+creating /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/lib/python3.10/site-packages/leftcampublisher
+copying /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/build/lib/leftcampublisher/leftcam_publisher.py -> /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/lib/python3.10/site-packages/leftcampublisher
+byte-compiling /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/lib/python3.10/site-packages/leftcampublisher/leftcam_publisher.py to leftcam_publisher.cpython-310.pyc
+running install_data
+creating /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/share
+creating /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/share/ament_index
+creating /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/share/ament_index/resource_index
+creating /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/share/ament_index/resource_index/packages
+error: can't copy 'resource/leftcampublisher': doesn't exist or not a regular file

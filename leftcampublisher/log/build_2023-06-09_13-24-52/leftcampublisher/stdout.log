@@ -1,0 +1,23 @@
+running egg_info
+writing build/leftcampublisher/leftcampublisher.egg-info/PKG-INFO
+writing dependency_links to build/leftcampublisher/leftcampublisher.egg-info/dependency_links.txt
+writing entry points to build/leftcampublisher/leftcampublisher.egg-info/entry_points.txt
+writing requirements to build/leftcampublisher/leftcampublisher.egg-info/requires.txt
+writing top-level names to build/leftcampublisher/leftcampublisher.egg-info/top_level.txt
+reading manifest file 'build/leftcampublisher/leftcampublisher.egg-info/SOURCES.txt'
+writing manifest file 'build/leftcampublisher/leftcampublisher.egg-info/SOURCES.txt'
+running build
+running build_py
+copying leftcampublisher/__init__.py -> /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/build/lib/leftcampublisher
+running install
+running install_lib
+copying /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/build/lib/leftcampublisher/__init__.py -> /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/lib/python3.10/site-packages/leftcampublisher
+byte-compiling /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/lib/python3.10/site-packages/leftcampublisher/__init__.py to __init__.cpython-310.pyc
+running install_data
+copying resource/leftcampublisher -> /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/share/ament_index/resource_index/packages
+creating /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/share/leftcampublisher
+copying package.xml -> /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/share/leftcampublisher
+running install_egg_info
+Copying build/leftcampublisher/leftcampublisher.egg-info to /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/lib/python3.10/site-packages/leftcampublisher-0.0.0-py3.10.egg-info
+running install_scripts
+writing list of installed files to '/home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/install.log'

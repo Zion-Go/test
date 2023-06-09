@@ -1,0 +1,14 @@
+package.xml
+setup.cfg
+setup.py
+build/leftcampublisher/leftcampublisher.egg-info/PKG-INFO
+build/leftcampublisher/leftcampublisher.egg-info/SOURCES.txt
+build/leftcampublisher/leftcampublisher.egg-info/dependency_links.txt
+build/leftcampublisher/leftcampublisher.egg-info/entry_points.txt
+build/leftcampublisher/leftcampublisher.egg-info/requires.txt
+build/leftcampublisher/leftcampublisher.egg-info/top_level.txt
+build/leftcampublisher/leftcampublisher.egg-info/zip-safe
+launch/launch.yaml
+leftcampublisher/__init__.py
+leftcampublisher/leftcam_publisher.py
+resource/leftcampublisher

@@ -1,0 +1,24 @@
+[0.289s] Invoking command in '/home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher': PYTHONPATH=/home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/prefix_override:/home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/leftcampublisher build --build-base /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/build install --record /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/install.log --single-version-externally-managed
+[0.423s] running egg_info
+[0.423s] writing build/leftcampublisher/leftcampublisher.egg-info/PKG-INFO
+[0.423s] writing dependency_links to build/leftcampublisher/leftcampublisher.egg-info/dependency_links.txt
+[0.423s] writing entry points to build/leftcampublisher/leftcampublisher.egg-info/entry_points.txt
+[0.424s] writing requirements to build/leftcampublisher/leftcampublisher.egg-info/requires.txt
+[0.424s] writing top-level names to build/leftcampublisher/leftcampublisher.egg-info/top_level.txt
+[0.424s] reading manifest file 'build/leftcampublisher/leftcampublisher.egg-info/SOURCES.txt'
+[0.425s] writing manifest file 'build/leftcampublisher/leftcampublisher.egg-info/SOURCES.txt'
+[0.425s] running build
+[0.425s] running build_py
+[0.425s] running install
+[0.425s] /usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+[0.425s]   warnings.warn(
+[0.425s] running install_lib
+[0.428s] running install_data
+[0.428s] creating /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/share/leftcampublisher/launch
+[0.428s] copying launch/launch.yaml -> /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/share/leftcampublisher/launch
+[0.428s] running install_egg_info
+[0.429s] removing '/home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/lib/python3.10/site-packages/leftcampublisher-0.0.0-py3.10.egg-info' (and everything under it)
+[0.429s] Copying build/leftcampublisher/leftcampublisher.egg-info to /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/lib/python3.10/site-packages/leftcampublisher-0.0.0-py3.10.egg-info
+[0.433s] running install_scripts
+[0.446s] writing list of installed files to '/home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/install.log'
+[0.459s] Invoked command in '/home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher' returned '0': PYTHONPATH=/home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/prefix_override:/home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/install/leftcampublisher/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base build/leftcampublisher build --build-base /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/build install --record /home/a/Downloads/Telegram Desktop/ros2_humble_docker/theimagingsource_ros/leftcampublisher/build/leftcampublisher/install.log --single-version-externally-managed

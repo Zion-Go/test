@@ -1,4 +1,5 @@
 import json
+import yaml
 import time
 from datetime import datetime
 import cv2
@@ -7,7 +8,8 @@ import os
 import numpy as np
 sys.path.append("../../tis_repos/Linux-tiscamera-Programming-Samples/python/python-common")
 sys.path.append("../../theimagingsource_ros/config")
-import TIS
+sys.path.append("/../../theimagingsource_ros/src/stereocam_publisher/stereocam_publisher")
+from stereocam_publisher import TIS
 import rclpy
 from rclpy.node import Node
 from cv_bridge import CvBridge
@@ -69,12 +71,11 @@ class CAMERA(TIS.TIS):
 
 class Publisher(Node):
     def __init__(self):
-        super().__init__("publisher")
+        super().__init__("leftcamera_publisher")
         
-        with open("./config/%scamera_publish_config.json" % self.camerawhich) as jsonFile:
-            cameraconfig = json.load(jsonFile)
-            # print(cameraconfig)
-            jsonFile.close()
+        with open("/home/a/theimagingsource_ros/src/stereocam_publisher/config/nodes_config.yaml") as yamlFile:
+            cameraconfig = yaml.load(yamlFile)
+            print(cameraconfig)
 
         self.bridge = CvBridge()
         self.camera = CAMERA(cameraconfig['properties'], cameraconfig['imageprefix'])

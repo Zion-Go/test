@@ -24,7 +24,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        'leftcamera_publisher = stereocam_publisher.leftcamera_publisher:main',
-        'rightcamera_publisher = stereocam_publisher.rightcamera_publisher:main'],
-    },
+        'leftcamera_publisher = stereocam_publisher.stereocam_publisher:main',
+        'rightcamera_publisher = stereocam_publisher.stereocam_publisher:main'],
+    }
 )

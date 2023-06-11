@@ -16,5 +16,11 @@ services:
               source: ${PRODUCTION_PATH}/ros2_humble_docker/ros2_repos
               target: /home/docker_ros2_humble/ros2_repos
             - /dev:/dev:rw
+            - type: bind
+              source: ${PRODUCTION_PATH}/ros2_humble_docker/theimagingsource_ros/src/stereocam_publisher/launch
+              target: /home/docker_ros2_humble/launch
+            - type: bind
+              source: ${PRODUCTION_PATH}/ros2_humble_docker/theimagingsource_ros/src/stereocam_publisher/config
+              target: /home/docker_ros2_humble/config
         # command: bash -c "source /opt/ros/humble/setup.bash;"
 

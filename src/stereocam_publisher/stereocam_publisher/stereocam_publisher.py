@@ -67,46 +67,54 @@ class CAMERA(TIS.TIS):
             try:
                 self.set_property(prop['property'],prop['value'])
             except Exception as error:
-                print(error)        
+                print(error)
+
+            
 
 class Publisher(Node):
     def __init__(self):
         super().__init__("leftcamera_publisher")
         
         with open("/home/a/theimagingsource_ros/src/stereocam_publisher/config/nodes_config.yaml") as yamlFile:
-            cameraconfig = yaml.load(yamlFile)
-            print(cameraconfig)
+            cameraconfig = yaml.safe_load(yamlFile)
+        # print(cameraconfig)
 
+        self.cameraleft = cameraconfig['leftcamera_publisher']['ros__parameters']['imageprefix']
+        self.cameraright = cameraconfig['rightcamera_publisher']['ros__parameters']['imageprefix']
+        camera_list = [self.cameraleft, self.cameraright]
         self.bridge = CvBridge()
-        self.camera = CAMERA(cameraconfig['properties'], cameraconfig['imageprefix'])
-        pformat = cameraconfig["pixelformat"]
-        self.camerawhich = cameraconfig['imageprefix']
-        self.camera.open_device(cameraconfig['serial'],
-                    cameraconfig['width'],
-                    cameraconfig['height'],
-                    cameraconfig['framerate'],
-                    TIS.SinkFormats[pformat], False)
-    
-        self.camera.set_image_callback(self.ros_callback)
-    
-        self.camera.enableTriggerMode("Off")
-        self.camera.busy = True
-        self.camera.start_pipeline()
-        self.camera.applyProperties()
-        self.camera.enableTriggerMode("On")
+
+        for camerawhich in camera_list:
+            self.camerawhich = camerawhich
+            self.camera = CAMERA(cameraconfig['%scamera_publisher' % self.camerawhich]['ros__parameters']['properties'], cameraconfig['%scamera_publisher' % self.camerawhich]['ros__parameters']['imageprefix'])
+            pformat = cameraconfig['%scamera_publisher' % self.camerawhich]['ros__parameters']["pixelformat"]
         
-        self.publisher_ = self.create_publisher(Image, '%s Image' % self.camerawhich, 10)
-        self.i = 0
-        self.im_list = []
+            self.camera.open_device(cameraconfig['%scamera_publisher' % self.camerawhich]['ros__parameters']['serial'],
+                                    cameraconfig['%scamera_publisher' % self.camerawhich]['ros__parameters']['width'],
+                                    cameraconfig['%scamera_publisher' % self.camerawhich]['ros__parameters']['height'],
+                                    cameraconfig['%scamera_publisher' % self.camerawhich]['ros__parameters']['framerate'],
+                                    TIS.SinkFormats[pformat], False)
+    
+            self.camera.set_image_callback(self.ros_callback)
+    
+            self.camera.enableTriggerMode("Off")
+            self.camera.busy = True
+            self.camera.start_pipeline()
+            self.camera.applyProperties()
+            self.camera.enableTriggerMode("On")
+        
+            self.publisher_ = self.create_publisher(Image, '%s_Image' % self.camerawhich, 10)
+            self.i = 0
+            # self.im_list = []
         
     
     def ros_callback(self, camera):
         cv_image = camera.get_image()
         img_msg = self.bridge.cv2_to_imgmsg(np.array(cv_image[:,:,:3]), "bgr8")
-        img_msg.header.frame_id = "%s img" % self.camerawhich
+        img_msg.header.frame_id = "%s_img" % self.camerawhich
         img_msg.header.stamp = self.get_clock().now().to_msg()
         self.publisher_.publish(img_msg)
-        self.get_logger().info('Received %s image: %d' % (self.camerawhich, self.i))
+        self.get_logger().info('Received_%s_image: %d' % (self.camerawhich, self.i))
         self.i += 1
 
 def main(args=None):

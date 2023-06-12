@@ -10,6 +10,7 @@ from gi.repository import GLib, Gst, Tcam
 gi.require_version("Gst", "1.0")
 gi.require_version("Tcam", "1.0")
 
+
 DeviceInfo = namedtuple("DeviceInfo", "status name identifier connection_type")
 CameraProperty = namedtuple("CameraProperty", "status value min max default step type flags category group")
 

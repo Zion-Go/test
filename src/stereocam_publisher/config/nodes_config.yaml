@@ -7,19 +7,20 @@ leftcamera_publisher:
     height: 1080
     framerate: 15/1
     properties:
-     property: BalanceWhiteAuto
-     value: Continuous
-     property: ExposureAuto
-     value: 'Off'
-     property: GainAuto
-     value: 'Off'
-     property: TriggerActivation
-     value: Rising Edge
-     property: TriggerDelay
-     value: 0
-     property: TriggerSelector
-     value: Exposure Active
-    imageprefix: left   
+     - property: BalanceWhiteAuto
+       value: Continuous
+     - property: ExposureAuto
+       value: 'Off'
+     - property: GainAuto
+       value: 'Off'
+     - property: TriggerActivation
+       value: Rising Edge
+     - property: TriggerDelay
+       value: 0
+     - property: TriggerSelector
+       value: Exposure Active
+    imageprefix: left
+  
 
 rightcamera_publisher:
   ros__parameters:
@@ -30,16 +31,16 @@ rightcamera_publisher:
     height: 1080
     framerate: 15/1
     properties:
-     property: BalanceWhiteAuto
-     value: Continuous
-     property: ExposureAuto
-     value: 'Off'
-     property: GainAuto
-     value: 'Off'
-     property: TriggerActivation
-     value: Rising Edge
-     property: TriggerDelay
-     value: 0
-     property: TriggerSelector
-     value: Exposure Active
-    imageprefix: right 
+    - property: BalanceWhiteAuto
+      value: Continuous
+    - property: ExposureAuto
+      value: 'Off'
+    - property: GainAuto
+      value: 'Off'
+    - property: TriggerActivation
+      value: Rising Edge
+    - property: TriggerDelay
+      value: 0
+    - property: TriggerSelector
+      value: Exposure Active
+    imageprefix: left

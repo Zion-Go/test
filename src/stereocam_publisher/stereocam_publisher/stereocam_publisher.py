@@ -69,127 +69,74 @@ class CAMERA(TIS.TIS):
             except Exception as error:
                 print(error)       
 
+def parameters_parsing(self):
+        
+        cam_serial = self.declare_parameter("serial", '')
+        self.serial = cam_serial.get_parameter_value().string_value
+
+        cam_pformat = self.declare_parameter("pixelformat",'')
+        self.pformat = cam_pformat.get_parameter_value().string_value
+
+        cam_prefix = self.declare_parameter("imageprefix", '')
+        self.prefix = cam_prefix.get_parameter_value().string_value
+        print(self.prefix)
+
+        cam_width = self.declare_parameter("width",'')
+        self.width = cam_width.get_parameter_value().string_value
+
+        cam_height = self.declare_parameter("height",'')
+        self.height = cam_height.get_parameter_value().string_value
+
+        cam_framerate = self.declare_parameter("framerate",'')
+        self.framerate = cam_framerate.get_parameter_value().string_value
+
 class Publisher(Node):
     def __init__(self):
         super().__init__("stereocamera_publisher")
-        
-        
+        parameters_parsing(self)
+
         self.bridge = CvBridge()
-        self.left_img = self.create_publisher(Image, 'left_image', 10)
-        self.right_img = self.create_publisher(Image, 'right_image', 10)
+        self.img_publish = self.create_publisher(Image, 'stereo_image', 10)
         # self.left_camerainfo = self.create_publisher(CameraInfo, 'left_camerainfo', 10)
-        # self.right_camerainfo = self.create_publisher(CameraInfo, 'right_camerainfo', 10)
         self.i = 0
+        
+        with open("./config/leftcamera_publish_config.json") as jsonFile:
+            cameraconfig = json.load(jsonFile)
+            # print(cameraconfig)
+            jsonFile.close()
 
-        # get imgs from cams
-        self.left_image, self.right_image = [], []
-        # get the imgs source with callback
-        with open("/home/theimagingsource_ros/src/stereocam_publisher/config/nodes_config.yaml") as yamlFile:
-            cameraconfig = yaml.safe_load(yamlFile)
+        self.camera = CAMERA(cameraconfig['properties'], self.prefix)
+        pformat = self.pformat
+        self.camera.open_device(self.serial, self.width, self.height, 
+                                self.framerate, TIS.SinkFormats[pformat], False)
+        
+        print('%s Camera opened')
+        self.camera.set_image_callback(self.ros_callback)
+        
+        self.camera.enableTriggerMode("Off")
+        self.camera.busy = True
+        self.camera.start_pipeline()
+        print('%s Pipeline started')
+        self.camera.applyProperties()
+        print('%s Properties applied')
+        self.camera.enableTriggerMode("On")
+        print('%s Trigger: on')
+        
     
-            self.cameraleft = cameraconfig['leftcamera_publisher']['ros__parameters']['imageprefix']
-            self.cameraright = cameraconfig['rightcamera_publisher']['ros__parameters']['imageprefix']
-            
-    
-        # left 
-        self.lcamera = CAMERA(cameraconfig['%scamera_publisher' % self.cameraleft]['ros__parameters']['properties'], cameraconfig['%scamera_publisher' % self.cameraleft]['ros__parameters']['imageprefix'])
-        pformat = cameraconfig['%scamera_publisher' % self.cameraleft]['ros__parameters']["pixelformat"]
-        print(self.cameraleft)
-        self.lcamera.open_device(cameraconfig['%scamera_publisher' % self.cameraleft]['ros__parameters']['serial'],
-                                    cameraconfig['%scamera_publisher' % self.cameraleft]['ros__parameters']['width'],
-                                    cameraconfig['%scamera_publisher' % self.cameraleft]['ros__parameters']['height'],
-                                    cameraconfig['%scamera_publisher' % self.cameraleft]['ros__parameters']['framerate'],
-                                    TIS.SinkFormats[pformat], False)
-        print('Left Camera opened')
-        self.lcamera.set_image_callback(self.ros_callback)
+    def ros_callback(self,camera):
         
-        self.lcamera.enableTriggerMode("Off")
-        self.lcamera.busy = True
-        self.lcamera.start_pipeline()
-        print('Left Pipeline started')
-        self.lcamera.applyProperties()
-        print('Left Properties applied')
-        self.lcamera.enableTriggerMode("On")
-        print('Left Trigger: on')
-        # self.leftimage = self.lcamera.get_image()
-        # print(self.leftimage)
+        self.image = camera.get_image()
+
+        img_msg = Image()
+        img_msg.data = self.bridge.cv2_to_imgmsg(np.array(self.image[self.i][:,:,:3]), "bgr8")
+        img_msg.header.frame_id = "%s_img" % self.prefix
+        img_msg.header.stamp = rclpy.clock.Clock().now().to_msg()
+        img_msg.height = np.shape(self.image)[0]
+        img_msg.width = np.shape(self.image)[1]
+        img_msg.encoding = "bgr8"
         
-        # right    
-        self.rcamera = CAMERA(cameraconfig['%scamera_publisher' % self.cameraright]['ros__parameters']['properties'], cameraconfig['%scamera_publisher' % self.cameraright]['ros__parameters']['imageprefix'])
-        pformat = cameraconfig['%scamera_publisher' % self.cameraright]['ros__parameters']["pixelformat"]
-        print(self.cameraright)
-        self.rcamera.open_device(cameraconfig['%scamera_publisher' % self.cameraright]['ros__parameters']['serial'],
-                                    cameraconfig['%scamera_publisher' % self.cameraright]['ros__parameters']['width'],
-                                    cameraconfig['%scamera_publisher' % self.cameraright]['ros__parameters']['height'],
-                                    cameraconfig['%scamera_publisher' % self.cameraright]['ros__parameters']['framerate'],
-                                    TIS.SinkFormats[pformat], False)
-        print('Right Camera opened')
-        self.rcamera.set_image_callback(self.ros_callback)
-        
-        self.rcamera.enableTriggerMode("Off")
-        self.rcamera.busy = True
-        self.rcamera.start_pipeline()
-        print('Right Pipeline started')
-        self.rcamera.applyProperties()
-        print('Right Properties applied')
-        self.rcamera.enableTriggerMode("On")
-        print('Right Trigger: on')
-        # self.rightimage = self.rcamera.get_image()
-        # print(self.rightimage)  
-        
-        # left_image.append(self.leftimage)
-        # right_image.append(self.rightimage)
-        self.camera_list = [self.lcamera, self.rcamera]
-        # fill the msgs
-        # limg_msg = Image()
-        # limg_msg.data = self.bridge.cv2_to_imgmsg(np.array(self.leftimage[self.i][:,:,:3]), "bgr8")
-        # limg_msg.header.frame_id = "%s_img" % self.cameraleft
-        # limg_msg.header.stamp = rclpy.clock.Clock().now().to_msg()
-        # limg_msg.height = np.shape(self.leftimage)[0]
-        # limg_msg.width = np.shape(self.leftimage)[1]
-        # limg_msg.encoding = "bgr8"
-        # # self.camerainfo = CameraInfo()
-
-        # rimg_msg = Image()
-        # rimg_msg.data = self.bridge.cv2_to_imgmsg(np.array(self.rightimage[self.i][:,:,:3]), "bgr8")
-        # rimg_msg.header.frame_id = "%s_img" % self.cameraright
-        # rimg_msg.header.stamp = rclpy.clock.Clock().now().to_msg()
-        # rimg_msg.height = np.shape(self.rightimage)[0]
-        # rimg_msg.width = np.shape(self.rightimage)[1]
-        # rimg_msg.encoding = "bgr8"
-
-        # self.left_img.publish(limg_msg)
-        # self.right_img.publish(rimg_msg)
-        # self.left_camerainfo.publish(self.camerainfo)
-        # self.right_camerainfo.publish(self.camerainfo)
-    
-    def ros_callback(self):
-        self.leftimage = self.lcamera.get_image()
-        self.rightimage = self.rcamera.get_image()
-        self.left_image.append(self.leftimage)
-        self.right_image.append(self.rightimage)
-
-        limg_msg = Image()
-        limg_msg.data = self.bridge.cv2_to_imgmsg(np.array(self.leftimage[self.i][:,:,:3]), "bgr8")
-        limg_msg.header.frame_id = "%s_img" % self.cameraleft
-        limg_msg.header.stamp = rclpy.clock.Clock().now().to_msg()
-        limg_msg.height = np.shape(self.leftimage)[0]
-        limg_msg.width = np.shape(self.leftimage)[1]
-        limg_msg.encoding = "bgr8"
-        # self.camerainfo = CameraInfo()
-
-        rimg_msg = Image()
-        rimg_msg.data = self.bridge.cv2_to_imgmsg(np.array(self.rightimage[self.i][:,:,:3]), "bgr8")
-        rimg_msg.header.frame_id = "%s_img" % self.cameraright
-        rimg_msg.header.stamp = rclpy.clock.Clock().now().to_msg()
-        rimg_msg.height = np.shape(self.rightimage)[0]
-        rimg_msg.width = np.shape(self.rightimage)[1]
-        rimg_msg.encoding = "bgr8"
-
-        self.left_img.publish(limg_msg)
-        self.right_img.publish(rimg_msg)
-        self.get_logger().info('Received_%s_image: %d' % (self.cameraleft, self.i))
-        self.get_logger().info('Received_%s_image: %d' % (self.cameraright, self.i))
+        self.img_publish.publish(img_msg)
+        self.get_logger().info('Received_%s_image: %d' % (self.prefix, self.i))
         self.i += 1
 
 def main(args=None):

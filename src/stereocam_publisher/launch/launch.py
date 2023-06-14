@@ -14,14 +14,16 @@ def generate_launch_description():
     )
     lcam_node = Node(
         package = "stereocam_publisher",
-        name = "leftcamera_publisher",
         executable = "leftcamera_publisher",
+        namespace = "leftcam",
+        name = "leftcamera_publisher",
         parameters = [config]
     )
     rcam_node = Node(
         package = "stereocam_publisher",
-        name = "rightcamera_publisher",
         executable = "rightcamera_publisher",
+        namespace = "rightcam",
+        name = "rightcamera_publisher",
         parameters = [config]
     )
 

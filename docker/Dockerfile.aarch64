@@ -27,9 +27,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-humble-ros-base=0.10.0-1* \
     && rm -rf /var/lib/apt/lists/*
 
-# install libs needed
+# install basic libs needed
 RUN apt-get update && apt-get install -y \
-    wget vim usbutils
+    wget vim usbutils python3 python3-pip
 
 # install GStreamer
 RUN apt-get install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
@@ -52,11 +52,12 @@ RUN git clone https://github.com/TheImagingSource/tiscamera.git \
 
 # source ros2
 RUN echo "source /opt/ros/humble/setup.bash" >> /root/.bashrc
-# install rviz2 cvbridge v4l2
+# install ros sub pkgs: rviz2 cvbridge v4l2 rqt
 RUN apt install -y ros-humble-rviz2 ros-humble-cv-bridge v4l-utils ros-humble-rqt*
+RUN pip install setuptools==58.2.0
 
 # Set docker container username
-ARG USER=docker_ros2_humble
+ARG USER=theimagingsource_ros
 ARG UID=1000
 ARG GID=1000
 ARG PW=user 

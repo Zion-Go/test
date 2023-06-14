@@ -16,18 +16,15 @@ def generate_launch_description():
         package = "stereocam_publisher",
         name = "leftcamera_publisher",
         executable = "leftcamera_publisher",
-        parameters = [
-            {'serial': "45020167"}
-        ]
+        parameters = [config]
     )
     rcam_node = Node(
         package = "stereocam_publisher",
         name = "rightcamera_publisher",
         executable = "rightcamera_publisher",
-        parameters = [
-            {'serial': "45020169"}
-        ]
+        parameters = [config]
     )
+
     ld.add_action(lcam_node)
     ld.add_action(rcam_node)
     return ld

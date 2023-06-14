@@ -1,11 +1,11 @@
 leftcamera_publisher:
   ros__parameters:
     serial: '45020167'
-    format: video/x-raw
-    pixelformat: BGRX
+    format: 'video/x-raw'
+    pixelformat: 'BGRX'
     width: 1920
     height: 1080
-    framerate: 15/1
+    framerate: '15/1'
     properties:
      - property: BalanceWhiteAuto
        value: Continuous
@@ -15,8 +15,8 @@ leftcamera_publisher:
        value: 'Off'
      - property: TriggerActivation
        value: Rising Edge
-     - property: TriggerDelay
-       value: 0
+     #- property: TriggerDelay
+      # value: '0'
      - property: TriggerSelector
        value: Exposure Active
     imageprefix: left
@@ -25,22 +25,22 @@ leftcamera_publisher:
 rightcamera_publisher:
   ros__parameters:
     serial: '45020169'
-    format: video/x-raw
-    pixelformat: BGRX
+    format: 'video/x-raw'
+    pixelformat: 'BGRX'
     width: 1920
     height: 1080
-    framerate: 15/1
+    framerate: '15/1'
     properties:
-    - property: BalanceWhiteAuto
-      value: Continuous
-    - property: ExposureAuto
-      value: 'Off'
-    - property: GainAuto
-      value: 'Off'
-    - property: TriggerActivation
-      value: Rising Edge
-    - property: TriggerDelay
-      value: 0
-    - property: TriggerSelector
-      value: Exposure Active
-    imageprefix: left
+     - property: BalanceWhiteAuto
+       value: Continuous
+     - property: ExposureAuto
+       value: 'Off'
+     - property: GainAuto
+       value: 'Off'
+     - property: TriggerActivation
+       value: Rising Edge
+     #- property: TriggerDelay
+      # value: '0'
+     - property: TriggerSelector
+       value: Exposure Active
+    imageprefix: right

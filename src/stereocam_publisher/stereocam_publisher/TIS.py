@@ -5,11 +5,10 @@ import re
 import gi
 import numpy
 from enum import Enum
+
+gi.require_version('Gst', '1.0')
+gi.require_version('Tcam', '1.0')
 from gi.repository import GLib, Gst, Tcam
-
-gi.require_version("Gst", "1.0")
-gi.require_version("Tcam", "1.0")
-
 
 DeviceInfo = namedtuple("DeviceInfo", "status name identifier connection_type")
 CameraProperty = namedtuple("CameraProperty", "status value min max default step type flags category group")
@@ -109,7 +108,7 @@ class TIS:
             data = buf.extract_dup(0, buf.get_size())
             caps = sample.get_caps()
             self.img_mat = self.__convert_to_numpy(data, caps)
-            self.ImageCallback(self, *self.ImageCallbackData)
+            self.ImageCallback(self) #, *self.ImageCallbackData)
         return Gst.FlowReturn.OK
 
     def set_sink_format(self, sf: SinkFormats):
@@ -260,9 +259,9 @@ class TIS:
         except Exception as error:
             raise RuntimeError(f"Failed to execute '{property_name}'") from error
 
-    def set_image_callback(self, function, *data):
+    def set_image_callback(self, function):
         self.ImageCallback = function
-        self.ImageCallbackData = data
+        # self.ImageCallbackData = data
 
     def __get_serial_by_index(self, index: int):
         ' Return the serial number of the camera enumerated at given index'

@@ -1,4 +1,4 @@
-version: "1.0"
+version: "2.0"
 services:
     ros2_driver:
         image: ${ARCH}humble/ros2_driver:${TAG}
@@ -13,14 +13,22 @@ services:
         tty: true
         volumes:
             - type: bind
-              source: ${PRODUCTION_PATH}/ros2_humble_docker/ros2_repos
-              target: /home/docker_ros2_humble/ros2_repos
+              source: /home/user/workspace/theimagingsource_ros/ros2_repos
+              target: /home/theimagingsource_ros/ros2_repos
             - /dev:/dev:rw
             - type: bind
-              source: ${PRODUCTION_PATH}/ros2_humble_docker/theimagingsource_ros/src/stereocam_publisher/launch
-              target: /home/docker_ros2_humble/launch
+              source: /home/user/workspace/theimagingsource_ros/src/stereocam_publisher/launch
+              target: /home/theimagingsource_ros/launch
             - type: bind
-              source: ${PRODUCTION_PATH}/ros2_humble_docker/theimagingsource_ros/src/stereocam_publisher/config
-              target: /home/docker_ros2_humble/config
-        # command: bash -c "source /opt/ros/humble/setup.bash;"
+              source: /home/user/workspace/theimagingsource_ros/src/stereocam_publisher/config
+              target: /home/theimagingsource_ros/config
+            - type: bind
+              source: /home/user/workspace/theimagingsource_ros/src/
+              target: /home/theimagingsource_ros/src
+        # command: bash -c "
+         #           source /opt/ros/humble/setup.bash
+          #          && colcon build --packages-select stereocam_publisher
+          #          && source ./install/setup.bash
+          #          && ros2 launch stereocam_publisher launch.py
+          #          "
 

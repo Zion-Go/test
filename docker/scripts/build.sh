@@ -6,6 +6,6 @@ export PRODUCTION_PATH=$PWD
 export ARCH=`uname -m`
 # export NUM_THREADS=`nproc`
 
-docker compose --env-file $PRODUCTION_PATH/ros2_humble_docker/build.env \
-    -f $PRODUCTION_PATH/ros2_humble_docker/build.yml \
+docker compose --env-file /home/user/workspace/theimagingsource_ros/docker/build.env \
+    -f /home/user/workspace/theimagingsource_ros/docker/build.yml \
     up --build $@

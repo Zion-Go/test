@@ -80,16 +80,16 @@ class Publisher(Node):
         # self.left_camerainfo = self.create_publisher(CameraInfo, 'left_camerainfo', 10)
         # self.right_camerainfo = self.create_publisher(CameraInfo, 'right_camerainfo', 10)
         self.i = 0
-        
+
         # get imgs from cams
-        left_image, right_image = [], []
+        self.left_image, self.right_image = [], []
         # get the imgs source with callback
         with open("/home/theimagingsource_ros/src/stereocam_publisher/config/nodes_config.yaml") as yamlFile:
             cameraconfig = yaml.safe_load(yamlFile)
     
             self.cameraleft = cameraconfig['leftcamera_publisher']['ros__parameters']['imageprefix']
             self.cameraright = cameraconfig['rightcamera_publisher']['ros__parameters']['imageprefix']
-            # camera_list = [self.cameraleft, self.cameraright]
+            
     
         # left 
         self.lcamera = CAMERA(cameraconfig['%scamera_publisher' % self.cameraleft]['ros__parameters']['properties'], cameraconfig['%scamera_publisher' % self.cameraleft]['ros__parameters']['imageprefix'])
@@ -111,8 +111,8 @@ class Publisher(Node):
         print('Left Properties applied')
         self.lcamera.enableTriggerMode("On")
         print('Left Trigger: on')
-        self.leftimage = self.lcamera.get_image()
-        print(self.leftimage)
+        # self.leftimage = self.lcamera.get_image()
+        # print(self.leftimage)
         
         # right    
         self.rcamera = CAMERA(cameraconfig['%scamera_publisher' % self.cameraright]['ros__parameters']['properties'], cameraconfig['%scamera_publisher' % self.cameraright]['ros__parameters']['imageprefix'])
@@ -134,13 +134,41 @@ class Publisher(Node):
         print('Right Properties applied')
         self.rcamera.enableTriggerMode("On")
         print('Right Trigger: on')
-        self.rightimage = self.rcamera.get_image()
-        print(self.rightimage)  
+        # self.rightimage = self.rcamera.get_image()
+        # print(self.rightimage)  
         
-        left_image.append(self.leftimage)
-        right_image.append(self.rightimage)
-        
+        # left_image.append(self.leftimage)
+        # right_image.append(self.rightimage)
+        self.camera_list = [self.lcamera, self.rcamera]
         # fill the msgs
+        # limg_msg = Image()
+        # limg_msg.data = self.bridge.cv2_to_imgmsg(np.array(self.leftimage[self.i][:,:,:3]), "bgr8")
+        # limg_msg.header.frame_id = "%s_img" % self.cameraleft
+        # limg_msg.header.stamp = rclpy.clock.Clock().now().to_msg()
+        # limg_msg.height = np.shape(self.leftimage)[0]
+        # limg_msg.width = np.shape(self.leftimage)[1]
+        # limg_msg.encoding = "bgr8"
+        # # self.camerainfo = CameraInfo()
+
+        # rimg_msg = Image()
+        # rimg_msg.data = self.bridge.cv2_to_imgmsg(np.array(self.rightimage[self.i][:,:,:3]), "bgr8")
+        # rimg_msg.header.frame_id = "%s_img" % self.cameraright
+        # rimg_msg.header.stamp = rclpy.clock.Clock().now().to_msg()
+        # rimg_msg.height = np.shape(self.rightimage)[0]
+        # rimg_msg.width = np.shape(self.rightimage)[1]
+        # rimg_msg.encoding = "bgr8"
+
+        # self.left_img.publish(limg_msg)
+        # self.right_img.publish(rimg_msg)
+        # self.left_camerainfo.publish(self.camerainfo)
+        # self.right_camerainfo.publish(self.camerainfo)
+    
+    def ros_callback(self):
+        self.leftimage = self.lcamera.get_image()
+        self.rightimage = self.rcamera.get_image()
+        self.left_image.append(self.leftimage)
+        self.right_image.append(self.rightimage)
+
         limg_msg = Image()
         limg_msg.data = self.bridge.cv2_to_imgmsg(np.array(self.leftimage[self.i][:,:,:3]), "bgr8")
         limg_msg.header.frame_id = "%s_img" % self.cameraleft
@@ -160,11 +188,6 @@ class Publisher(Node):
 
         self.left_img.publish(limg_msg)
         self.right_img.publish(rimg_msg)
-        # self.left_camerainfo.publish(self.camerainfo)
-        # self.right_camerainfo.publish(self.camerainfo)
-    
-    def ros_callback(self):
-
         self.get_logger().info('Received_%s_image: %d' % (self.cameraleft, self.i))
         self.get_logger().info('Received_%s_image: %d' % (self.cameraright, self.i))
         self.i += 1

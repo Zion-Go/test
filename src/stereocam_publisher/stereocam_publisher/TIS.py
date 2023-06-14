@@ -108,7 +108,7 @@ class TIS:
             data = buf.extract_dup(0, buf.get_size())
             caps = sample.get_caps()
             self.img_mat = self.__convert_to_numpy(data, caps)
-            self.ImageCallback(self) #, *self.ImageCallbackData)
+            self.ImageCallback(self)#, *self.ImageCallbackData)
         return Gst.FlowReturn.OK
 
     def set_sink_format(self, sf: SinkFormats):

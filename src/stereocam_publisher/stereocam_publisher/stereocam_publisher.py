@@ -74,75 +74,88 @@ def parameters_parsing(self):
         cam_serial = self.declare_parameter("serial", '')
         self.serial = cam_serial.get_parameter_value().string_value
 
-        cam_pformat = self.declare_parameter("pixelformat",'')
+        cam_pformat = self.declare_parameter("pixelformat",'BGRX')
         self.pformat = cam_pformat.get_parameter_value().string_value
 
         cam_prefix = self.declare_parameter("imageprefix", '')
         self.prefix = cam_prefix.get_parameter_value().string_value
-        print(self.prefix)
 
-        cam_width = self.declare_parameter("width",'')
-        self.width = cam_width.get_parameter_value().string_value
+        cam_width = self.declare_parameter("width", 1920)
+        self.width = cam_width.get_parameter_value().integer_value
 
-        cam_height = self.declare_parameter("height",'')
-        self.height = cam_height.get_parameter_value().string_value
+        cam_height = self.declare_parameter("height", 1080)
+        self.height = cam_height.get_parameter_value().integer_value
 
-        cam_framerate = self.declare_parameter("framerate",'')
+        cam_framerate = self.declare_parameter("framerate",'15/1')
         self.framerate = cam_framerate.get_parameter_value().string_value
 
 class Publisher(Node):
     def __init__(self):
         super().__init__("stereocamera_publisher")
+
         parameters_parsing(self)
+        # print('Start serial No.', self.serial)
+
+        with open("/home/theimagingsource_ros/src/stereocam_publisher/config/nodes_config.yaml") as yamlFile:
+            self.cameraconfig = yaml.safe_load(yamlFile)
+            # print(cameraconfig)
+            
+        with open("/home/theimagingsource_ros/src/stereocam_publisher/config/camera_config.json") as jsonFile:
+            self.prop = json.load(jsonFile)
+            
 
         self.bridge = CvBridge()
-        self.img_publish = self.create_publisher(Image, 'stereo_image', 10)
-        # self.left_camerainfo = self.create_publisher(CameraInfo, 'left_camerainfo', 10)
         self.i = 0
+        self.cameras = []
+        self.img_publish = self.create_publisher(Image, '%s_image' % self.prefix, 10)
         
-        with open("./config/leftcamera_publish_config.json") as jsonFile:
-            cameraconfig = json.load(jsonFile)
-            # print(cameraconfig)
-            jsonFile.close()
+        # self.left_camerainfo = self.create_publisher(CameraInfo, 'left_camerainfo', 10)
 
-        self.camera = CAMERA(cameraconfig['properties'], self.prefix)
+        self.camera = CAMERA(self.prop['properties'], self.prefix)
         pformat = self.pformat
-        self.camera.open_device(self.serial, self.width, self.height, 
-                                self.framerate, TIS.SinkFormats[pformat], False)
+        self.camera.open_device(self.serial,
+                self.width,
+                self.height,
+                self.framerate,
+                TIS.SinkFormats[pformat], False)
+
         
-        print('%s Camera opened')
+        print('%s Camera opened' % self.prefix)
         self.camera.set_image_callback(self.ros_callback)
+        
         
         self.camera.enableTriggerMode("Off")
         self.camera.busy = True
         self.camera.start_pipeline()
-        print('%s Pipeline started')
+        print('%s Pipeline started' % self.prefix)
         self.camera.applyProperties()
-        print('%s Properties applied')
+        print('%s Properties applied' % self.prefix)
         self.camera.enableTriggerMode("On")
-        print('%s Trigger: on')
-        
+        print('%s camera trigger on' % self.prefix)
+        self.camera.busy = False
+        self.camera.execute_command("TriggerSoftware")
+        print("software trigger")
     
     def ros_callback(self,camera):
-        
         self.image = camera.get_image()
 
-        img_msg = Image()
-        img_msg.data = self.bridge.cv2_to_imgmsg(np.array(self.image[self.i][:,:,:3]), "bgr8")
-        img_msg.header.frame_id = "%s_img" % self.prefix
+        # img_msg = Image()
+        img_msg = self.bridge.cv2_to_imgmsg(np.array(self.image[:,:,:3]), "bgr8")
+        img_msg.header.frame_id = "%s_imgraw" % self.prefix
         img_msg.header.stamp = rclpy.clock.Clock().now().to_msg()
         img_msg.height = np.shape(self.image)[0]
         img_msg.width = np.shape(self.image)[1]
-        img_msg.encoding = "bgr8"
+        img_msg.encoding = self.pformat
         
         self.img_publish.publish(img_msg)
+        
         self.get_logger().info('Received_%s_image: %d' % (self.prefix, self.i))
         self.i += 1
 
 def main(args=None):
     rclpy.init(args=args)
     stereocam_Publisher = Publisher()
-    print('1')
+    print('pass the publisher')
     rclpy.spin(stereocam_Publisher)
     
     stereocam_Publisher.destroy_node()

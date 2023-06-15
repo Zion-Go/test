@@ -1,0 +1,19 @@
+{         
+    "properties":
+    [
+                {"property":"BalanceWhiteAuto", "value":"Continuous"},
+                {"property":"BalanceWhiteRed", "value":1.9},
+                {"property":"BalanceWhiteGreen", "value":1.0},
+                {"property":"BalanceWhiteBlue", "value":1.9},
+                {"property":"ExposureAuto","value":"Continuous"},
+                {"property":"ExposureTime", "value":166.0},
+                {"property":"GainAuto", "value":"Continuous"},
+                {"property":"Gain", "value":6.0},
+
+                {"property":"TriggerActivation", "value":"Rising Edge"},
+                {"property":"TriggerDelay", "value":0.0},
+                {"property":"TriggerSelector", "value":"Exposure Active"}
+    ],
+    "imageprefix" : "right"            
+}
+

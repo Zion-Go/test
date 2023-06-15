@@ -1,13 +1,13 @@
 {         
     "properties":
     [
-                {"property":"BalanceWhiteAuto", "value":"Continuous"},
+                {"property":"BalanceWhiteAuto", "value":"Off"},
                 {"property":"BalanceWhiteRed", "value":1.9},
                 {"property":"BalanceWhiteGreen", "value":1.0},
                 {"property":"BalanceWhiteBlue", "value":1.9},
-                {"property":"ExposureAuto","value":"Continuous"},
+                {"property":"ExposureAuto","value":"Off"},
                 {"property":"ExposureTime", "value":166.0},
-                {"property":"GainAuto", "value":"Continuous"},
+                {"property":"GainAuto", "value":"Off"},
                 {"property":"Gain", "value":6.0},
 
                 {"property":"TriggerActivation", "value":"Rising Edge"},

@@ -132,9 +132,9 @@ class Publisher(Node):
         print('%s Properties applied' % self.prefix)
         self.camera.enableTriggerMode("On")
         print('%s camera trigger on' % self.prefix)
-        self.camera.busy = False
-        self.camera.execute_command("TriggerSoftware")
-        print("software trigger")
+        # self.camera.busy = False
+        # self.camera.execute_command("TriggerSoftware")
+        # print("software trigger")
     
     def ros_callback(self,camera):
         self.image = camera.get_image()

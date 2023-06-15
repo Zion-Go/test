@@ -6,7 +6,7 @@ export PRODUCTION_PATH=$PWD
 export ARCH=`uname -m`
 # export NUM_THREADS=`nproc`
 
-xhost +local:
+xhost + local:
 docker compose --env-file /home/user/workspace/theimagingsource_ros/docker/up.env \
     -f /home/user/workspace/theimagingsource_ros/docker/up.yml \
     up $@

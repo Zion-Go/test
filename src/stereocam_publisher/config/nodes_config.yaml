@@ -9,7 +9,7 @@ leftcam:
       framerate: "15/1"
       properties:
         - property: "BalanceWhiteAuto"
-          value: "Continuous"
+          value: "Off"
         - property: "ExposureAuto"
           value: "Off"
         - property: "GainAuto"
@@ -33,7 +33,7 @@ rightcam:
       framerate: "15/1"
       properties:
         - property: "BalanceWhiteAuto"
-          value: "Continuous"
+          value: "Off"
         - property: "ExposureAuto"
           value: "Off"
         - property: "GainAuto"

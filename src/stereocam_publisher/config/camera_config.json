@@ -1,4 +1,10 @@
-{         
+{   
+    "format" : "video/x-raw",
+    "pixelformat" : "BGRX",
+    "width" : 1920,
+    "height" : 1080,
+    "framerate":"15/1",
+          
     "properties":
     [
                 {"property":"BalanceWhiteAuto", "value":"Off"},
@@ -13,7 +19,7 @@
                 {"property":"TriggerActivation", "value":"Rising Edge"},
                 {"property":"TriggerDelay", "value":0.0},
                 {"property":"TriggerSelector", "value":"Exposure Active"}
-    ],
-    "imageprefix" : "right"            
+    ]
+               
 }
 

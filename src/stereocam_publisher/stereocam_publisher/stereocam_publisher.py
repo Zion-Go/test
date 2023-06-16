@@ -74,7 +74,7 @@ def parameters_parsing(self):
         cam_serial = self.declare_parameter("serial", '')
         self.serial = cam_serial.get_parameter_value().string_value
 
-        cam_pformat = self.declare_parameter("pixelformat",'BGRX')
+        cam_pformat = self.declare_parameter("pixelformat",'bgr8')
         self.pformat = cam_pformat.get_parameter_value().string_value
 
         cam_prefix = self.declare_parameter("imageprefix", '')
@@ -86,7 +86,7 @@ def parameters_parsing(self):
         cam_height = self.declare_parameter("height", 1080)
         self.height = cam_height.get_parameter_value().integer_value
 
-        cam_framerate = self.declare_parameter("framerate",'15/1')
+        cam_framerate = self.declare_parameter("framerate",'2')
         self.framerate = cam_framerate.get_parameter_value().string_value
 
 class Publisher(Node):
@@ -107,31 +107,35 @@ class Publisher(Node):
         self.bridge = CvBridge()
         self.i = 0
         self.cameras = []
-        self.img_publish = self.create_publisher(Image, '%s_image' % self.prefix, 10)
+        self.img_publish = self.create_publisher(Image, '%s_image' % self.prefix, 20)
         
         # self.left_camerainfo = self.create_publisher(CameraInfo, 'left_camerainfo', 10)
 
-        self.camera = CAMERA(self.prop['properties'], self.prefix)
-        pformat = self.pformat
+        self.camera = CAMERA(self.prop["properties"], self.prefix)
+        pformat = self.prop["pixelformat"]
         self.camera.open_device(self.serial,
-                self.width,
-                self.height,
-                self.framerate,
-                TIS.SinkFormats[pformat], False)
+                                self.width,
+                                self.height,
+                                self.framerate,
+                                TIS.SinkFormats[pformat], False)
 
         
-        print('%s Camera opened' % self.prefix)
+        # print('%s Camera opened' % self.prefix)
         self.camera.set_image_callback(self.ros_callback)
         
         
         self.camera.enableTriggerMode("Off")
-        self.camera.busy = True
-        self.camera.start_pipeline()
-        print('%s Pipeline started' % self.prefix)
         self.camera.applyProperties()
-        print('%s Properties applied' % self.prefix)
+        
+        # self.camera.busy = True
+        
+        self.camera.start_pipeline()
+        
+
+        # print('%s Pipeline started' % self.prefix)
+
         self.camera.enableTriggerMode("On")
-        print('%s camera trigger on' % self.prefix)
+        # print('%s camera trigger on' % self.prefix)
         # self.camera.busy = False
         # self.camera.execute_command("TriggerSoftware")
         # print("software trigger")
@@ -140,12 +144,12 @@ class Publisher(Node):
         self.image = camera.get_image()
 
         # img_msg = Image()
-        img_msg = self.bridge.cv2_to_imgmsg(np.array(self.image[:,:,:3]), "bgr8")
-        img_msg.header.frame_id = "%s_imgraw" % self.prefix
+        img_msg = self.bridge.cv2_to_imgmsg(np.array(self.image[:,:,:3]), encoding="bgr8")
+        img_msg.header.frame_id = "%s_imgraw: %d" % (self.prefix, self.i)
         img_msg.header.stamp = rclpy.clock.Clock().now().to_msg()
         img_msg.height = np.shape(self.image)[0]
         img_msg.width = np.shape(self.image)[1]
-        img_msg.encoding = self.pformat
+        img_msg.encoding = "bgr8" # self.pformat
         
         self.img_publish.publish(img_msg)
         
@@ -157,7 +161,7 @@ def main(args=None):
     stereocam_Publisher = Publisher()
     print('pass the publisher')
     rclpy.spin(stereocam_Publisher)
-    
+    stereocam_Publisher.camera.stop_pipeline()
     stereocam_Publisher.destroy_node()
     rclpy.shutdown()
 

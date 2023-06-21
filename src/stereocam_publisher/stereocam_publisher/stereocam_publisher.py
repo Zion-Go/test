@@ -86,15 +86,18 @@ def parameters_parsing(self):
     cam_height = self.declare_parameter("height", 1080)
     self.height = cam_height.get_parameter_value().integer_value
 
-    cam_framerate = self.declare_parameter("framerate",'5/1')
+    cam_framerate = self.declare_parameter("framerate",'15/1')
     self.framerate = cam_framerate.get_parameter_value().string_value
+    
+    
+    print("node config:", self.prefix, self.pformat, self.serial, self.width, self.height, self.framerate)
 
 class Publisher(Node):
     def __init__(self):
         super().__init__("stereocamera_publisher")
 
         parameters_parsing(self)
-        print('Start serial No.', self.serial)
+        
 
         with open("/home/theimagingsource_ros/src/stereocam_publisher/config/nodes_config.yaml") as yamlFile:
             self.cameraconfig = yaml.safe_load(yamlFile)
@@ -103,6 +106,8 @@ class Publisher(Node):
         with open("/home/theimagingsource_ros/src/stereocam_publisher/config/camera_config.json") as jsonFile:
             self.prop = json.load(jsonFile)
             
+        print("camera config:", self.prop["properties"])
+        print("node config:", self.prefix, self.serial, self.width, self.height, self.framerate)    
 
         self.bridge = CvBridge()
         self.i = 0
@@ -139,6 +144,8 @@ class Publisher(Node):
         # self.camera.busy = False
         # self.camera.execute_command("TriggerSoftware")
         # print("software trigger")
+        print("camera config:", self.prop["properties"])
+        print("node config:", self.prefix, self.serial, self.width, self.height, self.framerate)
     
     def ros_callback(self,camera):
         self.image = camera.get_image()
@@ -152,7 +159,10 @@ class Publisher(Node):
         img_msg.encoding = "bgr8" # self.pformat
         
         self.img_publish.publish(img_msg)
-        
+
+        print("camera config:", self.prop["properties"])
+        print("node config:", self.prefix, self.serial, self.width, self.height, self.framerate)
+
         self.get_logger().info('Received_%s_image: %d' % (self.prefix, self.i))
         self.i += 1
 
@@ -161,6 +171,9 @@ def main(args=None):
     stereocam_Publisher = Publisher()
     print('pass the publisher')
     rclpy.spin(stereocam_Publisher)
+
+    print("camera config:", Publisher.prop["properties"])
+    print("node config:", Publisher.prefix, Publisher.serial, Publisher.width, Publisher.height, Publisher.framerate)
 
     stereocam_Publisher.camera.stop_pipeline()
     stereocam_Publisher.destroy_node()

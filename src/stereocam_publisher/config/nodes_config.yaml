@@ -7,19 +7,7 @@ leftcam:
       width: 1920
       height: 1080
       framerate: "15/1"
-      properties:
-        - property: "BalanceWhiteAuto"
-          value: "Off"
-        - property: "ExposureAuto"
-          value: "Off"
-        - property: "GainAuto"
-          value: "Off"
-        - property: "TriggerActivation"
-          value: "Rising Edge"
-        - property: "TriggerDelay"
-          value: "0"
-        - property: "TriggerSelector"
-          value: "Exposure Active"
+      
       imageprefix: "left"
   
 rightcam:
@@ -31,17 +19,5 @@ rightcam:
       width: 1920
       height: 1080
       framerate: "15/1"
-      properties:
-        - property: "BalanceWhiteAuto"
-          value: "Off"
-        - property: "ExposureAuto"
-          value: "Off"
-        - property: "GainAuto"
-          value: "Off"
-        - property: "TriggerActivation"
-          value: "Rising Edge"
-        - property: "TriggerDelay"
-          value: "0"
-        - property: "TriggerSelector"
-          value: "Exposure Active"
+      
       imageprefix: "right"

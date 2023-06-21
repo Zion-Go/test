@@ -71,30 +71,30 @@ class CAMERA(TIS.TIS):
 
 def parameters_parsing(self):
         
-        cam_serial = self.declare_parameter("serial", '')
-        self.serial = cam_serial.get_parameter_value().string_value
+    cam_serial = self.declare_parameter("serial", '')
+    self.serial = cam_serial.get_parameter_value().string_value
 
-        cam_pformat = self.declare_parameter("pixelformat",'bgr8')
-        self.pformat = cam_pformat.get_parameter_value().string_value
+    cam_pformat = self.declare_parameter("pixelformat",'bgr8')
+    self.pformat = cam_pformat.get_parameter_value().string_value
 
-        cam_prefix = self.declare_parameter("imageprefix", '')
-        self.prefix = cam_prefix.get_parameter_value().string_value
+    cam_prefix = self.declare_parameter("imageprefix", '')
+    self.prefix = cam_prefix.get_parameter_value().string_value
 
-        cam_width = self.declare_parameter("width", 1920)
-        self.width = cam_width.get_parameter_value().integer_value
+    cam_width = self.declare_parameter("width", 1920)
+    self.width = cam_width.get_parameter_value().integer_value
 
-        cam_height = self.declare_parameter("height", 1080)
-        self.height = cam_height.get_parameter_value().integer_value
+    cam_height = self.declare_parameter("height", 1080)
+    self.height = cam_height.get_parameter_value().integer_value
 
-        cam_framerate = self.declare_parameter("framerate",'2')
-        self.framerate = cam_framerate.get_parameter_value().string_value
+    cam_framerate = self.declare_parameter("framerate",'5/1')
+    self.framerate = cam_framerate.get_parameter_value().string_value
 
 class Publisher(Node):
     def __init__(self):
         super().__init__("stereocamera_publisher")
 
         parameters_parsing(self)
-        # print('Start serial No.', self.serial)
+        print('Start serial No.', self.serial)
 
         with open("/home/theimagingsource_ros/src/stereocam_publisher/config/nodes_config.yaml") as yamlFile:
             self.cameraconfig = yaml.safe_load(yamlFile)
@@ -106,7 +106,7 @@ class Publisher(Node):
 
         self.bridge = CvBridge()
         self.i = 0
-        self.cameras = []
+        # self.cameras = []
         self.img_publish = self.create_publisher(Image, '%s_image' % self.prefix, 20)
         
         # self.left_camerainfo = self.create_publisher(CameraInfo, 'left_camerainfo', 10)
@@ -120,7 +120,7 @@ class Publisher(Node):
                                 TIS.SinkFormats[pformat], False)
 
         
-        # print('%s Camera opened' % self.prefix)
+        print('%s Camera opened' % self.prefix)
         self.camera.set_image_callback(self.ros_callback)
         
         
@@ -132,10 +132,10 @@ class Publisher(Node):
         self.camera.start_pipeline()
         
 
-        # print('%s Pipeline started' % self.prefix)
+        print('%s Pipeline started' % self.prefix)
 
         self.camera.enableTriggerMode("On")
-        # print('%s camera trigger on' % self.prefix)
+        print('%s camera trigger on' % self.prefix)
         # self.camera.busy = False
         # self.camera.execute_command("TriggerSoftware")
         # print("software trigger")
@@ -161,6 +161,7 @@ def main(args=None):
     stereocam_Publisher = Publisher()
     print('pass the publisher')
     rclpy.spin(stereocam_Publisher)
+
     stereocam_Publisher.camera.stop_pipeline()
     stereocam_Publisher.destroy_node()
     rclpy.shutdown()

@@ -25,10 +25,10 @@ services:
             - type: bind
               source: /home/user/workspace/theimagingsource_ros/src/
               target: /home/theimagingsource_ros/src
-        # command: bash -c "
-         #           source /opt/ros/humble/setup.bash
-          #          && colcon build --packages-select stereocam_publisher
-          #          && source ./install/setup.bash
-          #          && ros2 launch stereocam_publisher launch.py
-          #          "
+        command: bash -c "
+                   source /opt/ros/humble/setup.bash;
+                   colcon build --packages-select stereocam_publisher;
+                   source ./install/setup.bash;
+                   ros2 launch stereocam_publisher launch.py
+                   "
 

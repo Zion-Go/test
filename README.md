@@ -9,7 +9,7 @@
 - **launch** - a folder for launch files (.launch), that start the ROS node and load parameters from configuration files described above. This folder should by binded to the docker container, so you can run files inside docker;
 
 ## Usage:
-    In jetson Agx Xavier: 
+    In Jetson Agx Xavier: 
 ``` bash
 cd home/user/workspace
 git clone git@gitlab.com:sk-isrl/sdc-kia/stereo/theimagingsource_ros.git

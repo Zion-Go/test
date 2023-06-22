@@ -2,22 +2,12 @@ leftcam:
   leftcamera_publisher:
     ros__parameters:
       serial: "45020167"
-      format: "video/x-raw"
-      pixelformat: "BGRX"
-      width: 1920
-      height: 1080
-      framerate: "15/1"
-      
       imageprefix: "left"
+      config_path: "/home/theimagingsource_ros/src/stereocam_publisher/config/camera_config.json"
   
 rightcam:
    rightcamera_publisher:
     ros__parameters:
       serial: "45020169"
-      format: "video/x-raw"
-      pixelformat: "BGRX"
-      width: 1920
-      height: 1080
-      framerate: "15/1"
-      
       imageprefix: "right"
+      config_path: "/home/theimagingsource_ros/src/stereocam_publisher/config/camera_config.json"

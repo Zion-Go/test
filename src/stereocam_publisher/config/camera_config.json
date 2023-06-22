@@ -3,7 +3,7 @@
     "pixelformat" : "BGRX",
     "width" : 1920,
     "height" : 1080,
-    "framerate":"15/1",
+    "framerate": "15/1",
           
     "properties":
     [

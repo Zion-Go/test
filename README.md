@@ -18,4 +18,3 @@ sudo ./up.sh
 ```
 into.sh is for entering the docker container.
 
-P.S. Do not forget about adding CmakeLists.txt and package.xml to the root of the repo, as it is a ROS repo.

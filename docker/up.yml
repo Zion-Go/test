@@ -12,9 +12,6 @@ services:
         user: root
         tty: true
         volumes:
-            - type: bind
-              source: /home/user/workspace/theimagingsource_ros/ros2_repos
-              target: /home/theimagingsource_ros/ros2_repos
             - /dev:/dev:rw
             - type: bind
               source: /home/user/workspace/theimagingsource_ros/src/stereocam_publisher/launch

@@ -1,10 +1,10 @@
-version: "2.0"
+version: "1.0"
 services:
-    ros2_driver:
-        image: ${ARCH}humble/ros2_driver:${TAG}
+    cuda_ros:
+        image: ${ARCH}humble/cuda_ros:${TAG}
         network_mode: host
         pid: host
-        container_name: ros2_driver
+        container_name: cuda_ros
         env_file: $ENV_FILE
         environment:
             - DISPLAY=$DISPLAY
@@ -13,19 +13,15 @@ services:
         tty: true
         volumes:
             - /dev:/dev:rw
+            
             - type: bind
-              source: /home/user/workspace/theimagingsource_ros/src/stereocam_publisher/launch
-              target: /home/theimagingsource_ros/launch
-            - type: bind
-              source: /home/user/workspace/theimagingsource_ros/src/stereocam_publisher/config
-              target: /home/theimagingsource_ros/config
-            - type: bind
-              source: /home/user/workspace/theimagingsource_ros/src/
-              target: /home/theimagingsource_ros/src
-        command: bash -c "
-                   source /opt/ros/humble/setup.bash;
-                   colcon build --packages-select stereocam_publisher;
-                   source ./install/setup.bash;
-                   ros2 launch stereocam_publisher launch.py
-                   "
+              source: /home/oz/Downloads/theimagingsource_ros/cuda_ros2_repos/
+              target: /home/cuda_ros/cuda_ros2_repos
+
+        # command: bash -c "
+        #            source /opt/ros/humble/setup.bash;
+        #            colcon build --packages-select stereocam_publisher;
+        #            source ./install/setup.bash;
+        #            ros2 launch stereocam_publisher launch.py
+        #            "
 

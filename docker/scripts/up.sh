@@ -7,7 +7,7 @@ export ARCH=`uname -m`
 # export NUM_THREADS=`nproc`
 
 xhost +
-docker-compose --env-file /home/user/workspace/theimagingsource_ros/docker/up.env \
-    -f /home/user/workspace/theimagingsource_ros/docker/up.yml \
+docker compose --env-file /home/oz/Downloads/theimagingsource_ros/docker/up.env \
+    -f /home/oz/Downloads/theimagingsource_ros/docker/up.yml \
     up $@
 xhost -

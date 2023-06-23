@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker exec -it ros2_driver bash
+docker exec -it cuda_ros bash
